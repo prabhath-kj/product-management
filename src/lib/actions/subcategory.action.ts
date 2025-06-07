@@ -6,6 +6,7 @@ import { getUserFromToken } from "../auth";
 import { SubcategorySchema } from "../validator";
 import { Subcategory } from "../db/models/subcategory.model";
 import { formatError } from "../utils";
+import { revalidatePath } from "next/cache";
 
 export async function createSubcategory(data: ISubcategory) {
   try {
@@ -20,6 +21,7 @@ export async function createSubcategory(data: ISubcategory) {
     if (exists) throw new Error("Subcategory already exists");
 
     const created = await Subcategory.create(parsed);
+    revalidatePath("/");
 
     return {
       success: true,
@@ -34,15 +36,7 @@ export async function createSubcategory(data: ISubcategory) {
 }
 
 export async function getAllSubcategories() {
-  try {
-    await connectToDatabase();
-
-    const subcategories = await Subcategory.find({ isPublished: true });
-    return subcategories;
-  } catch (err) {
-    return {
-      success: false,
-      message: formatError(err),
-    };
-  }
+  await connectToDatabase();
+  const subcategories = await Subcategory.find();
+  return JSON.parse(JSON.stringify(subcategories));
 }

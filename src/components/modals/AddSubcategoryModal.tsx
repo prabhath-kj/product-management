@@ -10,7 +10,6 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ISubcategory } from '@/types'
@@ -19,15 +18,15 @@ import { useEffect } from 'react'
 import { toSlug } from '@/lib/utils'
 import { createSubcategory } from '@/lib/actions/subcategory.action'
 import { toast } from 'sonner'
+import { useCategoryStore } from '@/hooks/use.category.store'
 
 
 
-const fakeCategories = [
-    { id: '1', name: 'Laptop' },
-    { id: '2', name: 'Tablet' },
-]
+
 
 export function AddSubCategoryModal({ children }: { children: React.ReactNode }) {
+    const { categories } = useCategoryStore()
+
     const form = useForm<ISubcategory>({
         resolver: zodResolver(SubcategorySchema),
         defaultValues: {
@@ -96,7 +95,7 @@ export function AddSubCategoryModal({ children }: { children: React.ReactNode })
                         <FormField
                             control={form.control}
                             name="categoryId"
-                    
+
                             render={({ field }) => (
                                 <FormItem className='w-full'>
                                     <FormLabel>Category</FormLabel>
@@ -107,8 +106,8 @@ export function AddSubCategoryModal({ children }: { children: React.ReactNode })
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent >
-                                            {fakeCategories.map((cat) => (
-                                                <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>
+                                            {categories.map((cat) => (
+                                                <SelectItem key={cat._id} value={cat._id}>{cat.name}</SelectItem>
                                             ))}
                                         </SelectContent>
                                     </Select>
