@@ -5,6 +5,7 @@ import { connectToDatabase } from '../db'
 import { UserSignUpSchema } from '../validator'
 import { User } from '../db/models/user.model'
 import bcrypt from "bcryptjs"
+import { formatError } from '../utils'
  
 // Register user server action
 export async function registerUser(userData: IUserSignUp) {
@@ -19,6 +20,6 @@ export async function registerUser(userData: IUserSignUp) {
     await User.create({ ...user, password: hashedPassword })
     return { success: true, message: 'User registered successfully' }
   } catch (error) {
-    return { success: false, message: (error as Error).message }
+    return { success: false, message: formatError(error)}
   }
 }

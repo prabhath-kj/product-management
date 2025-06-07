@@ -31,7 +31,6 @@ export const UserSignUpSchema = z
 export const CategorySchema = z.object({
   name: z.string().min(2, 'Category name is required'),
   slug: z.string().min(2, 'Slug is required'),
-  isPublished: z.boolean().default(true),
 })
 
 export const CategoryUpdateSchema = CategorySchema.extend({
