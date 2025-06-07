@@ -20,11 +20,17 @@ export async function createCategory(formData: ICategory) {
     if (exists) throw new Error("Category already exists");
 
     const created = await Category.create({ ...data });
-    return { success: true, data:  JSON.parse(JSON.stringify(created)) };
+    return { success: true, data: JSON.parse(JSON.stringify(created)) };
   } catch (error) {
     return {
       success: false,
       message: formatError(error),
     };
   }
+}
+
+export async function getAllCategories() {
+  await connectToDatabase();
+  const categories = await Category.find({ isPublished: true });
+  return categories;
 }

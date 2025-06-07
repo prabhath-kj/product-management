@@ -43,7 +43,6 @@ export const SubcategorySchema = z.object({
   name: z.string().min(2, 'Subcategory name is required'),
   slug: z.string().min(2, 'Slug is required'),
   categoryId: MongoId,
-  isPublished: z.boolean().default(true),
 })
 
 export const SubcategoryUpdateSchema = SubcategorySchema.extend({
