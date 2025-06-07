@@ -1,7 +1,6 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { Mail, Lock, User } from 'lucide-react'
@@ -19,20 +18,17 @@ import {
 // import { registerUser } from '@/lib/actions/auth.actions'
 import { toast } from "sonner"
 import Link from 'next/link'
+import { IUserSignUp } from '@/types'
+import { UserSignUpSchema } from '@/lib/validator'
 
-const formSchema = z.object({
-    name: z.string().min(2, 'Name is required'),
-    email: z.string().email('Invalid email'),
-    password: z.string().min(6, 'Password must be at least 6 characters'),
-})
 
-type FormSchema = z.infer<typeof formSchema>
+
 
 export default function RegisterPage() {
     const router = useRouter()
 
-    const form = useForm<FormSchema>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<IUserSignUp>({
+        resolver: zodResolver(UserSignUpSchema),
         defaultValues: {
             name: '',
             email: '',
@@ -40,7 +36,7 @@ export default function RegisterPage() {
         },
     })
 
-    const onSubmit = async (data: FormSchema) => {
+    const onSubmit = async (data: IUserSignUp) => {
         // try {
         //   const res = await registerUser(data)
         //   if (!res?.success) {

@@ -19,26 +19,23 @@ import {
 // import { registerUser } from '@/lib/actions/auth.actions'
 import { toast } from "sonner"
 import Link from 'next/link'
+import { IUserSignIn } from '@/types'
+import { UserSignInSchema } from '@/lib/validator'
 
-const formSchema = z.object({
-    email: z.string().email('Invalid email'),
-    password: z.string().min(6, 'Password must be at least 6 characters'),
-})
 
-type FormSchema = z.infer<typeof formSchema>
 
 export default function LoginPage() {
     const router = useRouter()
 
-    const form = useForm<FormSchema>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<IUserSignIn>({
+        resolver: zodResolver(UserSignInSchema),
         defaultValues: {
             email: '',
             password: '',
         },
     })
 
-    const onSubmit = async (data: FormSchema) => {
+    const onSubmit = async (data: IUserSignIn) => {
         // try {
         //   const res = await registerUser(data)
         //   if (!res?.success) {
