@@ -64,8 +64,8 @@ export default function RegisterPage() {
                     To keep connected with us please login with your personal info
                 </p>
 
-                <Link href="/login">
-                    <button className="border-2 px-6 py-2 rounded-full hover:bg-white hover:text-[#003B5B] transition">
+                <Link href="/sign-in">
+                    <button className="border-2 px-6 py-2 rounded-full hover:bg-white hover:text-[#003B5B] transition cursor-pointer">
                         SIGN IN
                     </button>
                 </Link>
@@ -88,7 +88,7 @@ export default function RegisterPage() {
                                             <div className="relative">
                                                 <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                                                 <Input
-                                                    className="pl-10 bg-gray-100"
+                                                    className="pl-10 bg-gray-100 rounded-none "
                                                     placeholder="Name"
                                                     {...field}
                                                 />
@@ -109,7 +109,7 @@ export default function RegisterPage() {
                                             <div className="relative">
                                                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                                                 <Input
-                                                    className="pl-10 bg-gray-100"
+                                                    className="pl-10 bg-gray-100 rounded-none"
                                                     placeholder="Email"
                                                     type="email"
                                                     {...field}
@@ -131,7 +131,7 @@ export default function RegisterPage() {
                                             <div className="relative">
                                                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                                                 <Input
-                                                    className="pl-10 bg-gray-100"
+                                                    className="pl-10 bg-gray-100 rounded-none"
                                                     placeholder="Password"
                                                     type="password"
                                                     {...field}
@@ -146,7 +146,7 @@ export default function RegisterPage() {
                             {/* Submit */}
                             <div className="flex justify-center">
 
-                                <Button type="submit" className="w-full rounded-full bg-yellow-500 hover:bg-yellow-600">
+                                <Button type="submit" className=" rounded-full bg-yellow-500 hover:bg-yellow-600 cursor-pointer">
                                     {form.formState.isSubmitting ? 'Creating Account...' : 'SIGN UP'}
                                 </Button>
                             </div>

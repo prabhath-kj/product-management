@@ -113,7 +113,7 @@ export default function LoginPage() {
                             <div className="flex justify-center">
                                 <Button
                                     type="submit"
-                                    className="rounded-full bg-yellow-500 hover:bg-yellow-600"
+                                    className="rounded-full bg-yellow-500 hover:bg-yellow-600 cursor-pointer"
                                 >
                                     {form.formState.isSubmitting ? 'SIGN IN...' : 'SIGN IN'}
                                 </Button>
@@ -125,12 +125,12 @@ export default function LoginPage() {
             </div>
             {/* Right Panel */}
             <div className="hidden w-1/2 bg-[#003B5B] text-white md:flex flex-col items-center justify-center px-10">
-                <h2 className="text-3xl font-bold mb-4">HELLO FRIEND!</h2>
+                <h2 className="text-3xl font-bold mb-4">Hello Friend!</h2>
                 <p className="text-sm mb-6 text-center">
                     Enter your personal details and start your journy with us
                 </p>
                 <Link href="/sign-up">
-                    <button className="border-2 px-6 py-2 rounded-full hover:bg-white hover:text-[#003B5B] transition">
+                    <button className="border-2 px-6 py-2 rounded-full hover:bg-white hover:text-[#003B5B] transition cursor-pointer">
                         SIGN UP
                     </button>
                 </Link>
