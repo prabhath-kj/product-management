@@ -10,7 +10,7 @@ export default function AddButtons() {
             <AddCategoryModal>
                 <Button
                     variant="default"
-                    className="bg-yellow-500 hover:bg-yellow-600 text-white"
+                    className="bg-yellow-500 hover:bg-yellow-600 text-white "
                 >
                     Add category
                 </Button>

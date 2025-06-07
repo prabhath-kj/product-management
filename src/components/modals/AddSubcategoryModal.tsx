@@ -47,7 +47,7 @@ export function AddSubCategoryModal({ children }: { children: React.ReactNode })
     const onSubmit = async (data: ISubcategory) => {
         const result = await createSubcategory(data)
         if (result.success) {
-            toast.success('Category created successfully')
+            toast.success('Subcategory created successfully')
             form.reset()
         } else {
             toast.error(result.message || 'Failed to create category')
@@ -116,9 +116,21 @@ export function AddSubCategoryModal({ children }: { children: React.ReactNode })
                             )}
                         />
                         <div className="flex justify-center gap-3">
-                            <Button type="submit" className="bg-yellow-500 text-white">Add</Button>
-                            <Button type="button" variant="outline">Discard</Button>
+                            <Button type="submit" className="bg-yellow-500 text-white" disabled={form.formState.isSubmitting}>
+                                {form.formState.isSubmitting ? (
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                        Adding...
+                                    </div>
+                                ) : (
+                                    'Add'
+                                )}
+                            </Button>
+                            <Button type="button" variant="outline" disabled={form.formState.isSubmitting}>
+                                Discard
+                            </Button>
                         </div>
+
                     </form>
                 </Form>
             </DialogContent>
