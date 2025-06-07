@@ -35,20 +35,41 @@ export default function LoginPage() {
         },
     })
 
+
     const onSubmit = async (data: IUserSignIn) => {
-        // try {
-        //   const res = await registerUser(data)
-        //   if (!res?.success) {
-        //     toast({ variant: 'destructive', description: res.message || 'Something went wrong' })
-        //     return
-        //   }
-        //   toast({ description: 'Registration successful!' })
-        //   form.reset()
-        //   router.push('/login')
-        // } catch (err: any) {
-        // //   toast({ variant: 'destructive', description: err.message })
-        // }
+        try {
+            const res = await fetch('/api/auth/sign-in', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            })
+
+            const result = await res.json()
+
+            if (!res.ok || !result.success) {
+                toast('Login failed', {
+                    description: result.message || 'Invalid credentials',
+                    action: {
+                        label: 'Retry',
+                        onClick: () => { },
+                    },
+                })
+                return
+            }
+
+            toast('Login successful!', {
+                description: 'Welcome back!',
+            })
+
+            form.reset()
+            router.push('/')
+        } catch (err: any) {
+            toast('Something went wrong', {
+                description: err?.message || 'Unexpected error occurred',
+            })
+        }
     }
+
 
     return (
         <div className="flex min-h-screen overflow-hidden">

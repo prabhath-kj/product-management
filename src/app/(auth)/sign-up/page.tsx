@@ -15,11 +15,11 @@ import {
     FormLabel,
     FormMessage,
 } from '@/components/ui/form'
-// import { registerUser } from '@/lib/actions/auth.actions'
 import { toast } from "sonner"
 import Link from 'next/link'
 import { IUserSignUp } from '@/types'
 import { UserSignUpSchema } from '@/lib/validator'
+import { registerUser } from '@/lib/actions/user.actions'
 
 
 
@@ -37,19 +37,29 @@ export default function RegisterPage() {
     })
 
     const onSubmit = async (data: IUserSignUp) => {
-        // try {
-        //   const res = await registerUser(data)
-        //   if (!res?.success) {
-        //     toast({ variant: 'destructive', description: res.message || 'Something went wrong' })
-        //     return
-        //   }
-        //   toast({ description: 'Registration successful!' })
-        //   form.reset()
-        //   router.push('/login')
-        // } catch (err: any) {
-        // //   toast({ variant: 'destructive', description: err.message })
-        // }
+        try {
+            const res = await registerUser(data)
+            
+            if (!res?.success) {
+
+                toast.warning(res.message || 'Something went wrong',
+                {
+                    position:"top-center"
+                }
+                )
+                return
+            }
+            toast.success('Registration successful!',
+            )
+            form.reset()
+            router.push('/sign-in')
+        } catch (err: any) {
+            toast.error(
+                err?.message || 'Unexpected error occurred',
+            )
+        }
     }
+
 
     return (
         <div className="flex min-h-screen overflow-hidden">
