@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+MERN Machine Test – Product Management
 
-## Getting Started
+This project is built as a part of a technical machine test assignment based on the MERN stack. While the original requirement specified the use of **MongoDB, Express, React, and Node.js (MERN)**, this solution uses a more modern full-stack framework, **Next.js (App Router)**, which effectively covers both frontend and backend concerns while maintaining the core architecture of the MERN stack.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+##  Tech Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+###  Core Stack
+- **Next.js 15+ (App Router)** – Replaces traditional React + Express, provides frontend & backend in one
+- **TypeScript** – For type safety across the entire stack
+- **MongoDB** – NoSQL database for data storage
+- **Zod** – Schema validation for forms and APIs
+- **React Hook Form** – Simple and performant form state management
+- **Tailwind CSS** – Utility-first CSS framework
+- **Shadcn UI** – Prebuilt accessible components
+- **Lucide Icons** – Icon set used in UI
+- **Cloudinary** – Image upload and storage service
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+##  Features
 
-## Learn More
+- ✅ User Authentication (Sign In & Sign Up) using server actions
+- ✅ Category and Subcategory Management
+- ✅ Product CRUD with variant support (RAM, price, stock)
+- ✅ Image Upload using Cloudinary 
+- ✅ Dynamic Slug Generation from Product/Category Name
+- ✅ Pagination and Filtering using `searchParams`
+- ✅ Modular form components with reusable structure
+- ✅ Validation using `zod` and react-hook-form
+- ✅ Global state with Zustand (for storing categories, subcategories, etc.)
+- ✅ Server Actions for form handling (Next.js feature)
+- ✅ API Routes for token-based protected CRUD operations
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📡 Architecture Decisions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Server Components** are used to fetch data from MongoDB directly.
+- **Client Components** handle UI interactivity like category filtering and pagination.
+- **Next.js Server Actions** are used for secure form submissions.
+- **API Routes** are used for protected actions requiring token authentication (e.g., admin CRUD).
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
