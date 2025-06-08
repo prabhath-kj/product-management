@@ -7,24 +7,31 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 })
 
-export async function POST(req: Request) {
-  const data = await req.formData()
-  const file = data.get('file') as File
-
-  if (!file) {
-    return NextResponse.json({ error: 'No file found' }, { status: 400 })
-  }
-
-  const buffer = Buffer.from(await file.arrayBuffer())
-
+function uploadStream(buffer: Buffer): Promise<any> {
   return new Promise((resolve, reject) => {
-    const stream = cloudinary.uploader.upload_stream((err: { message: any }, result: { secure_url: any }) => {
-      if (err || !result) {
-        reject(NextResponse.json({ error: err?.message || 'Upload failed' }, { status: 500 }))
-        return
-      }
-      resolve(NextResponse.json({ url: result.secure_url }))
+    const stream = cloudinary.uploader.upload_stream((error, result) => {
+      if (error) return reject(error)
+      resolve(result)
     })
     stream.end(buffer)
   })
+}
+
+export async function POST(req: Request): Promise<Response> {
+  try {
+    const data = await req.formData()
+    const file = data.get('file') as File | null
+
+    if (!file) {
+      return NextResponse.json({ error: 'No file found' }, { status: 400 })
+    }
+
+    const buffer = Buffer.from(await file.arrayBuffer())
+
+    const result = await uploadStream(buffer)
+
+    return NextResponse.json({ url: result.secure_url })
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message || 'Upload failed' }, { status: 500 })
+  }
 }

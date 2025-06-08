@@ -21,11 +21,22 @@ import { toast } from "sonner"
 import Link from 'next/link'
 import { IUserSignIn } from '@/types'
 import { UserSignInSchema } from '@/lib/validator'
+import { useAuthStore } from '@/hooks/use.auth.store'
+import { useEffect } from 'react'
 
 
 
 export default function LoginPage() {
     const router = useRouter()
+    const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
+    const setAuthenticated = useAuthStore((s) => s.setAuthenticated)
+
+
+  useEffect(() => {
+  if (isAuthenticated) {
+    router.push("/")
+  }
+}, [isAuthenticated, router])
 
     const form = useForm<IUserSignIn>({
         resolver: zodResolver(UserSignInSchema),
@@ -60,7 +71,7 @@ export default function LoginPage() {
             toast('Login successful!', {
                 description: 'Welcome back!',
             })
-
+            setAuthenticated(true)
             form.reset()
             router.push('/')
         } catch (err: any) {

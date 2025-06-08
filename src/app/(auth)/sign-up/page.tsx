@@ -20,12 +20,22 @@ import Link from 'next/link'
 import { IUserSignUp } from '@/types'
 import { UserSignUpSchema } from '@/lib/validator'
 import { registerUser } from '@/lib/actions/user.actions'
+import { useAuthStore } from '@/hooks/use.auth.store'
+import { useEffect } from 'react'
 
 
 
 
 export default function RegisterPage() {
     const router = useRouter()
+    const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            router.push("/")
+        }
+    }, [isAuthenticated, router])
+
 
     const form = useForm<IUserSignUp>({
         resolver: zodResolver(UserSignUpSchema),
@@ -39,13 +49,13 @@ export default function RegisterPage() {
     const onSubmit = async (data: IUserSignUp) => {
         try {
             const res = await registerUser(data)
-            
+
             if (!res?.success) {
 
                 toast.warning(res.message || 'Something went wrong',
-                {
-                    position:"top-center"
-                }
+                    {
+                        position: "top-center"
+                    }
                 )
                 return
             }
