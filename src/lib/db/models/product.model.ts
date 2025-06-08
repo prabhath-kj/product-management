@@ -11,7 +11,6 @@ export interface IProduct  {
   name: string
   slug: string
   description: string
-  categoryId: Types.ObjectId
   subcategoryId: Types.ObjectId
   images: string[]
   variants: IVariant[]
@@ -28,7 +27,6 @@ const ProductSchema = new Schema<IProduct>({
   name: { type: String, required: true },
   slug: { type: String, required: true },
   description: { type: String, required: true },
-  categoryId: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
   subcategoryId: { type: Schema.Types.ObjectId, ref: 'Subcategory', required: true },
   images: [{ type: String, required: true }],
   variants: { type: [VariantSchema], required: true },

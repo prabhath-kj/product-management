@@ -22,7 +22,7 @@ export default function ProductCard({
 
         <div className="relative h-32 w-full mb-2">
           <Image
-            src={Test!}
+            src={image}
             alt={name}
             fill
             className="object-contain"
